@@ -1,0 +1,27 @@
+import   "d5854447fc47e3b913da86fafae87fea:./View.js";
+import   "d5854447fc47e3b913da86fafae87fea:fractional";
+import   "d5854447fc47e3b913da86fafae87fea:url:../../img/icons.svg";
+class $d5854447fc47e3b913da86fafae87fea$var$RecipeView extends $d5854447fc47e3b913da86fafae87fea$import$bc564d5e62d693bc$9099ad97b570f7c {
+    _parentElement = document.querySelector('.recipe');
+    _errorMEssage = 'We couldnt load the recipe, please try another!';
+    _message = '';
+    addHandlerRender(handler) {
+        [
+            'hashchange',
+            'load'
+        ].forEach((ev)=>window.addEventListener(ev, handler)
+        );
+    }
+    addHandlerUpdateServings(handler) {
+        this._parentElement.addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn--update-servings');
+            if (!btn) return;
+            const { updateTo: updateTo  } = btn.dataset;
+            if (+updateTo > 0) handler(+updateTo);
+        });
+    }
+    _generateMarkupIngredient(ingredient) {
+        return `<li class="recipe__ingredient">\n        <svg class="recipe__icon">\n          <use href="${$d5854447fc47e3b913da86fafae87fea$import$5e363e6f755f0684$9099ad97b570f7c}#icon-check"></use>\n        </svg>\n        <div class="recipe__quantity">${new $d5854447fc47e3b913da86fafae87fea$import$afe0b0fc10cb7f39$2ced16407d18a1c7(ingredient.quantity).toString()}</div>\n        <div class="recipe__description">\n          <span class="recipe__unit">${ingredient.unit}</span>\n          ${ingredient.description}\n        </div>\n      </li>`;
+    }
+}
+var $d5854447fc47e3b913da86fafae87fea$export$9099ad97b570f7c = new $d5854447fc47e3b913da86fafae87fea$var$RecipeView();

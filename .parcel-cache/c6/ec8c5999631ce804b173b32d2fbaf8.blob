@@ -1,0 +1,31 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _fractional = require("fractional");
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+class RecipeView extends _viewJsDefault.default {
+    _parentElement = document.querySelector('.recipe');
+    _errorMEssage = 'We couldnt load the recipe, please try another!';
+    _message = '';
+    addHandlerRender(handler) {
+        [
+            'hashchange',
+            'load'
+        ].forEach((ev)=>window.addEventListener(ev, handler)
+        );
+    }
+    addHandlerUpdateServings(handler) {
+        this._parentElement.addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn--update-servings');
+            if (!btn) return;
+            const { updateTo  } = +btn.dataset;
+            handler(updateTo);
+        });
+    }
+    _generateMarkupIngredient(ingredient) {
+        return `<li class="recipe__ingredient">\n        <svg class="recipe__icon">\n          <use href="${_iconsSvgDefault.default}#icon-check"></use>\n        </svg>\n        <div class="recipe__quantity">${new _fractional.Fraction(ingredient.quantity).toString()}</div>\n        <div class="recipe__description">\n          <span class="recipe__unit">${ingredient.unit}</span>\n          ${ingredient.description}\n        </div>\n      </li>`;
+    }
+}
+exports.default = new RecipeView();

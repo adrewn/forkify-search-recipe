@@ -1,0 +1,50 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _modelJs = require("./model.js");
+var _recipeViewJs = require("./views/recipeView.js");
+var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
+var _stable = require("core-js/stable");
+var _runtime = require("regenerator-runtime/runtime");
+var _searchViewJs = require("./views/searchView.js");
+var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
+var _resultViewJs = require("./views/resultView.js");
+var _resultViewJsDefault = parcelHelpers.interopDefault(_resultViewJs);
+var _paginationViewJs = require("./views/paginationView.js");
+var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
+const controlRecipes = async function() {
+    try {
+        const id = window.location.hash.slice(1);
+        console.log(id);
+        if (!id) return;
+        _recipeViewJsDefault.default.renderSpinner();
+        // loading recipe
+        await _modelJs.loadRecipe(id);
+        // rendering cecipe
+        _recipeViewJsDefault.default.render(_modelJs.state.recipe);
+    } catch (err) {
+        _recipeViewJsDefault.default.renderError(err);
+    }
+};
+const controlSearchResults = async function() {
+    try {
+        // Get query
+        const query = _searchViewJsDefault.default.getQuery();
+        if (!query) return;
+        _resultViewJsDefault.default.renderSpinner();
+        // Load the data
+        await _modelJs.loadSearchResults(query);
+        // Render the data
+        _resultViewJsDefault.default.render(_modelJs.getSearchResultsPage(3));
+        // render initial pagination button
+        _paginationViewJsDefault.default.render(_modelJs.state.search);
+    } catch (err) {
+        console.log(err);
+    }
+};
+const controlPagination = function() {
+};
+const init = function() {
+    _recipeViewJsDefault.default.addHandlerRender(controlRecipes);
+    _searchViewJsDefault.default.addHandlerSearch(controlSearchResults);
+    _paginationViewJsDefault.default.addHandlerClick(controlPagination);
+};
+init();

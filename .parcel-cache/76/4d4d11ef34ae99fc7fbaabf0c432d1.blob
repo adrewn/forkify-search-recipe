@@ -1,0 +1,20 @@
+const $37f17f2cfa7c1f359151dec56797b63a$var$timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
+    });
+};
+const $37f17f2cfa7c1f359151dec56797b63a$export$578f55a5d60842ba = async function(url) {
+    try {
+        const res = await Promise.race([
+            fetch(url),
+            $37f17f2cfa7c1f359151dec56797b63a$var$timeout(5)
+        ]);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};

@@ -1,0 +1,14 @@
+import   "1733002eae92df279a371c70b5890b34:./View.js";
+import   "1733002eae92df279a371c70b5890b34:url:../../img/icons.svg";
+class $1733002eae92df279a371c70b5890b34$var$resultView extends $1733002eae92df279a371c70b5890b34$import$bc564d5e62d693bc$9099ad97b570f7c {
+    _parentElement = document.querySelector('.results');
+    _errorMEssage = 'No recipes found, please try another!';
+    _message = '';
+    _generateMarkup() {
+        return this._data.map(this._generateMarkupPreview).join('');
+    }
+    _generateMarkupPreview(result) {
+        return `<li class="preview">\n      <a class="preview__link" href="#${result.id}">\n        <figure class="preview__fig">\n          <img src="${result.image}" alt="Test" />\n        </figure>\n        <div class="preview__data">\n          <h4 class="preview__title">${result.title}</h4>\n          <p class="preview__publisher">${result.publisher}</p>\n        </div>\n      </a>\n    </li>`;
+    }
+}
+var $1733002eae92df279a371c70b5890b34$export$9099ad97b570f7c = new $1733002eae92df279a371c70b5890b34$var$resultView();

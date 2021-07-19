@@ -1,0 +1,22 @@
+{
+  "name": "search-recipe",
+  "version": "1.0.0",
+  "description": "Web application using to search for cooking recipe",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "author": "andrew-nguyen",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0-beta.3.1",
+    "parcel": "^2.0.0-beta.3.1",
+    "sass": "^1.26.10"
+  },
+  "dependencies": {
+    "fraction": "^0.2.0",
+    "fractional": "^1.0.0",
+    "regenerator-runtime": "^0.13.7"
+  }
+}
